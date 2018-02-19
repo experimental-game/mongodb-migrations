@@ -1,6 +1,6 @@
 {
   "name": "mongodb-migrations",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "A migration framework for MongoDB",
   "main": "lib/mongodb-migrations.js",
   "scripts": {
@@ -16,13 +16,7 @@
     "type": "git",
     "url": "git://github.com/emirotin/mongodb-migrations.git"
   },
-  "keywords": [
-    "mongodb",
-    "mongo",
-    "migrate",
-    "migration",
-    "migrations"
-  ],
+  "keywords": ["mongodb", "mongo", "migrate", "migration", "migrations"],
   "author": "Eugene Mirotin <emirotin@gmail.com>",
   "license": "MIT",
   "bugs": {
