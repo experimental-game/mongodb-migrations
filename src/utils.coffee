@@ -66,9 +66,13 @@ exports.normalizeConfig = (config) ->
 
 exports.connect = (config, cb) ->
   options = _buildOptions(config)
-
   url = urlBuilder.buildMongoConnString(config)
-  MongoClient.connect url, options, cb
+
+  driverCompatShim = (err, client) ->
+    db = client.db()
+    db.close = (args...) -> client.close(args...)
+    cb(err, db)
+  MongoClient.connect url, options, driverCompatShim
 
 exports.repeatString = (str, n) ->
   Array(n + 1).join(str)
