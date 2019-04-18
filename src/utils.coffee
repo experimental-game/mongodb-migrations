@@ -64,15 +64,16 @@ exports.normalizeConfig = (config) ->
 
   return config
 
+driverCompatShim = (cb) -> (err, client) ->
+  db = client.db()
+  db.close = (args...) -> client.close(args...)
+  cb(err, db)
+
 exports.connect = (config, cb) ->
   options = _buildOptions(config)
-  url = urlBuilder.buildMongoConnString(config)
 
-  driverCompatShim = (err, client) ->
-    db = client.db()
-    db.close = (args...) -> client.close(args...)
-    cb(err, db)
-  MongoClient.connect url, options, driverCompatShim
+  url = urlBuilder.buildMongoConnString(config)
+  MongoClient.connect url, options, driverCompatShim(cb)
 
 exports.repeatString = (str, n) ->
   Array(n + 1).join(str)
